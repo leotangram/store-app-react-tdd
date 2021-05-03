@@ -1,4 +1,4 @@
-import {InputLabel, Select, TextField} from '@material-ui/core'
+import {Button, InputLabel, Select, TextField} from '@material-ui/core'
 
 const Form = () => (
   <>
@@ -13,6 +13,7 @@ const Form = () => (
         <option value="furniture">Furniture</option>
         <option value="clothing">Clothing</option>
       </Select>
+      <Button>Submit</Button>
     </form>
   </>
 )
