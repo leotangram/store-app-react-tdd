@@ -32,12 +32,33 @@ const Form = () => {
     }
   }
 
+  const handleBlur = e => {
+    const { name, value } = e.target
+
+    setFormErrors({
+      ...formErrors,
+      [name]: value.length ? '' : `The ${name} is required`,
+    })
+  }
+
   return (
     <>
       <h1>Create product</h1>
       <form onSubmit={handleSubmit}>
-        <TextField label="name" id="name" helperText={formErrors.name} />
-        <TextField label="size" id="size" helperText={formErrors.size} />
+        <TextField
+          label="name"
+          id="name"
+          helperText={formErrors.name}
+          name="name"
+          onBlur={handleBlur}
+        />
+        <TextField
+          label="size"
+          id="size"
+          name="size"
+          helperText={formErrors.size}
+          onBlur={handleBlur}
+        />
         <InputLabel htmlFor="type">Type</InputLabel>
         <Select native value="" inputProps={{ name: 'type', id: 'type' }}>
           <option aria-label="None" value="" />

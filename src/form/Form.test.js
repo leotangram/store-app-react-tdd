@@ -45,4 +45,32 @@ describe('<Form />', () => {
       expect(screen.queryByText(/the type is required/i)).toBeInTheDocument()
     })
   })
+
+  // If the user blurs a field that is empty, then the form must display the
+  //   required message for that field.
+  describe('when the user blurs an empty field', () => {
+    it('should display a validation error message for the input name', () => {
+      expect(
+        screen.queryByText(/the name is required/i),
+      ).not.toBeInTheDocument()
+
+      fireEvent.blur(screen.getByLabelText(/name/i), {
+        target: { name: 'name', value: '' },
+      })
+
+      expect(screen.queryByText(/the name is required/i)).toBeInTheDocument()
+    })
+
+    it('should display a validation error message for the input size', () => {
+      expect(
+        screen.queryByText(/the size is required/i),
+      ).not.toBeInTheDocument()
+
+      fireEvent.blur(screen.getByLabelText(/size/i), {
+        target: { name: 'size', value: '' },
+      })
+
+      expect(screen.queryByText(/the size is required/i)).toBeInTheDocument()
+    })
+  })
 })
