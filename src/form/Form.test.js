@@ -93,17 +93,15 @@ describe('<Form />', () => {
 
   describe('when the user submits the form', () => {
     it('should the submit button be disabled until the request is done', async () => {
-      expect(screen.getByRole('button', { name: /submit/i })).not.toBeDisabled()
+      const submitButton = screen.getByRole('button', { name: /submit/i })
 
-      fireEvent.click(screen.getByRole('button', { name: /submit/i }))
+      expect(submitButton).not.toBeDisabled()
 
-      expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled()
+      fireEvent.click(submitButton)
 
-      await waitFor(() =>
-        expect(
-          screen.getByRole('button', { name: /submit/i }),
-        ).not.toBeDisabled(),
-      )
+      expect(submitButton).toBeDisabled()
+
+      await waitFor(() => expect(submitButton).not.toBeDisabled())
     })
   })
 })
