@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Button, InputLabel, Select, TextField } from '@material-ui/core'
 import { saveProduct } from '../services/productServices'
+import { CREATED_STATUS } from '../const/httpStatus'
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
@@ -32,7 +34,10 @@ const Form = () => {
 
     validateForm({ name: name.value, size: size.value, type: type.value })
 
-    await saveProduct()
+    const response = await saveProduct()
+    if (response.status === CREATED_STATUS) {
+      setIsSuccess(true)
+    }
 
     setIsSaving(false)
   }
@@ -45,6 +50,7 @@ const Form = () => {
   return (
     <>
       <h1>Create product</h1>
+      {isSuccess && <p>Product stored</p>}
       <form onSubmit={handleSubmit}>
         <TextField
           label="name"
