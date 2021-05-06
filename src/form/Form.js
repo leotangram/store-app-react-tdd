@@ -25,6 +25,12 @@ const Form = () => {
     validateField({ name: 'type', value: type })
   }
 
+  const getFormValues = ({ name, size, type }) => ({
+    name: name.value,
+    size: size.value,
+    type: type.value,
+  })
+
   const handleSubmit = async e => {
     e.preventDefault()
 
@@ -32,9 +38,9 @@ const Form = () => {
 
     const { name, size, type } = e.target.elements
 
-    validateForm({ name: name.value, size: size.value, type: type.value })
+    validateForm(getFormValues({ name, size, type }))
 
-    const response = await saveProduct()
+    const response = await saveProduct(getFormValues({ name, size, type }))
     if (response.status === CREATED_STATUS) {
       setIsSuccess(true)
     }
@@ -67,7 +73,7 @@ const Form = () => {
           onBlur={handleBlur}
         />
         <InputLabel htmlFor="type">Type</InputLabel>
-        <Select native value="" inputProps={{ name: 'type', id: 'type' }}>
+        <Select native inputProps={{ name: 'type', id: 'type' }}>
           <option aria-label="None" value="" />
           <option value="electronic">Electronic</option>
           <option value="furniture">Furniture</option>

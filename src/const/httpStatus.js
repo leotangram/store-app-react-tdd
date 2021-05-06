@@ -1,3 +1,2 @@
 export const CREATED_STATUS = 201
-
-export default { CREATED_STATUS }
+export const ERROR_SERVER_STATUS = 500
