@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Button, InputLabel, Select, TextField } from '@material-ui/core'
 import { saveProduct } from '../services/productServices'
-import { CREATED_STATUS } from '../const/httpStatus'
+import { CREATED_STATUS, ERROR_SERVER_STATUS } from '../const/httpStatus'
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
@@ -46,6 +47,10 @@ const Form = () => {
       setIsSuccess(true)
     }
 
+    if (response.status === ERROR_SERVER_STATUS) {
+      setErrorMessage('Unexpected error, please try again')
+    }
+
     setIsSaving(false)
   }
 
@@ -58,6 +63,7 @@ const Form = () => {
     <>
       <h1>Create product</h1>
       {isSuccess && <p>Product stored</p>}
+      {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <TextField
           label="name"
