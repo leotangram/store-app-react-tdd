@@ -1,5 +1,7 @@
+import Form from './form/Form'
+
 function App() {
-  return <div />
+  return <Form />
 }
 
 export default App
